@@ -1,5 +1,5 @@
 pipeline {
-    agent JNKN-AGNT-01
+    agent { label 'agnt-01' }
     stages {
         stage('Stage 1') {
             steps {
