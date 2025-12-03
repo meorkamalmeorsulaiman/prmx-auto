@@ -1,0 +1,10 @@
+---
+api_user:  ansible@pam
+api_token_id: ansible-token
+
+node: prox02
+task_timeout: 500
+clone_source: UBUNTU-24-TMPLT
+interface_type: ethernet
+interface_name: ens18
+gateway: 192.168.101.1
