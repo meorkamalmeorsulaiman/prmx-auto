@@ -1,0 +1,14 @@
+---
+- name: Creating Virtual Machines
+  proxmox_kvm:
+    api_user: "{{ api_user }}"
+    api_token_id: "{{ api_token_id }}"
+    api_token_secret: "{{ api_token_secret }}"
+    api_host: "{{ ansible_host }}"
+    node: "{{ node }}"
+    clone: "{{ clone_source }}"
+    name: "{{ item.value.vm_name }}"
+    newid: "{{ item.value.vm_id }}"
+    timeout: "{{ task_timeout }}"
+    description: "{{ item.value.vm_ip_address }}"
+  loop: "{{ virtual_machines|dict2items }}"

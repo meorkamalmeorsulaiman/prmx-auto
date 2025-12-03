@@ -1,0 +1,7 @@
+---
+- hosts: vm_template
+  become: true
+  gather_facts: false
+  roles:
+    - reconfigure-vm
+

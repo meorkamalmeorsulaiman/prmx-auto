@@ -1,0 +1,12 @@
+---
+- name: Starting Virtual Machines
+  proxmox_kvm:
+    api_user: "{{ api_user }}"
+    api_token_id: "{{ api_token_id }}"
+    api_token_secret: "{{ api_token_secret }}"
+    api_host: "{{ ansible_host }}"
+    node: "{{ node }}"
+    name: "{{ vm_name }}"
+    newid: "{{ vm_id }}"
+    timeout: "{{ task_timeout }}"
+    state: started
