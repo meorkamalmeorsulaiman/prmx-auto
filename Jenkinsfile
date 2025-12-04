@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Initialize') {
             steps {
-		sh "ansible-playbook initialize.yml -e \'vm_id=${pararms.VM_ID} vm_name=${params.VM_NAME}\' -C"
+		sh "ansible-playbook initialize.yml -e \\\'vm_id=${pararms.VM_ID} vm_name=${params.VM_NAME}\\\' -C"
             }
         }
     }
