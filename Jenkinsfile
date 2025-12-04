@@ -12,5 +12,10 @@ pipeline {
 		sh 'ansible-playbook create-vm.yml -C'
             }
         }
+        stage('Initialize') {
+            steps {
+		echo $vm_id
+            }
+        }
     }
 }
