@@ -1,9 +1,9 @@
 pipeline {
     agent { label 'agnt-01' }
     stages {
-        stage('Stage 1') {
+        stage('Creating Virutal Machine') {
             steps {
-		sh 'echo $USER'
+		sh 'ansible-inventory --list -i inventory.yaml'
             }
         }
     }
