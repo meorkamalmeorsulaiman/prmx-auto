@@ -1,9 +1,9 @@
 pipeline {
     agent { label 'agnt-01' }
     parameters {
-	string(name: 'vm_id', defaultValue: 'Enter value', description: 'Virtual machine ID')
-	string(name: 'vm_name', defaultValue: 'Enter value',  description: 'Virtual machine name')
-	string(name: 'vm_ip_address', defaultValue: 'Enter value',  description: 'Virtual machine IP')
+	string(name: 'VM_ID', defaultValue: 'Enter value', description: 'Virtual machine ID')
+	string(name: 'VM_NAME', defaultValue: 'Enter value',  description: 'Virtual machine name')
+	string(name: 'VM_IP_ADDRESS', defaultValue: 'Enter value',  description: 'Virtual machine IP')
 
     }
     stages {
@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Initialize') {
             steps {
-		echo '${params.vm_id}'
+		echo "${params.VM_ID}"
             }
         }
     }
