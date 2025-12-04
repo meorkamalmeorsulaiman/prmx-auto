@@ -12,9 +12,14 @@ pipeline {
 		sh 'ansible-playbook create-vm.yml -C'
             }
         }
-        stage('Initialize') {
+        stage('Initialize Virtual Machine') {
             steps {
 		sh "ansible-playbook initialize.yml -e \'vm_id=${params.VM_ID} vm_name=${params.VM_NAME}\' -C"            
+	    }
+        }
+        stage('Reconfigure Virtual Machine') {
+            steps {
+		sh "ansible-playbook initialize.yml -e \'vm_id=${params.VM_NAME} vm_name=${params.VM_IP_ADDRESS}\' -C"            
 	    }
         }
     }
