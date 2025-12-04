@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Creating Virutal Machine') {
             steps {
-		sh 'ansible-playbook create-vm.yml -e "api_token_secret=${env.PROX_TOKEN_ID}" -C'
+		sh 'ansible-playbook create-vm.yml -C'
             }
         }
     }
