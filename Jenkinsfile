@@ -10,20 +10,20 @@ pipeline {
         stage('Creating Virutal Machine') {
             steps {
 		echo "*** Creating ${params.VM_NAME} virutal machine ***"
-		sh 'ansible-playbook create-vm.yml -C'
+		sh 'ansible-playbook create-vm.yml'
 		echo '*** Virtual machine will start with default configuration ***'
             }
         }
         stage('Initialize Virtual Machine') {
             steps {
 		echo "*** Initializing ${params.VM_NAME}. Proxmox will start ${params.VM_NAME} ***"
-		sh "ansible-playbook initialize.yml -e \'vm_id=${params.VM_ID} vm_name=${params.VM_NAME}\' -C"            
+		sh "ansible-playbook initialize.yml -e \'vm_id=${params.VM_ID} vm_name=${params.VM_NAME}\'"            
 	    }
         }
         stage('Reconfigure Virtual Machine') {
             steps {
 		echo "*** ${params.VM_NAME} will be reconfigure as specified ***"
-		sh "ansible-playbook reconfigure.yml -e \'vm_id=${params.VM_NAME} vm_name=${params.VM_IP_ADDRESS}\' -C"            
+		sh "ansible-playbook reconfigure.yml -e \'vm_id=${params.VM_NAME} vm_name=${params.VM_IP_ADDRESS}\'"            
 		echo "*** Please restart ${params.VM_NAME} ***"
 	    }
         }
