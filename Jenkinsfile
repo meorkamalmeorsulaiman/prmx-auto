@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Initialize') {
             steps {
-		echo $vm_id
+		echo '${params.vm_id}'
             }
         }
     }
