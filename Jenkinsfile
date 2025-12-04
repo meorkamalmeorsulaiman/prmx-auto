@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Reconfigure Virtual Machine') {
             steps {
-		sh "ansible-playbook initialize.yml -e \'vm_id=${params.VM_NAME} vm_name=${params.VM_IP_ADDRESS}\' -C"            
+		sh "ansible-playbook reconfigure.yml -e \'vm_id=${params.VM_NAME} vm_name=${params.VM_IP_ADDRESS}\' -C"            
 	    }
         }
     }
