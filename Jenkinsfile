@@ -10,7 +10,7 @@ pipeline {
         stage('Creating Virutal Machine') {
             steps {
 		echo "*** Creating ${params.VM_NAME} virutal machine ***"
-		sh 'ansible-playbook create-vm.yml'
+		sh 'ansible-playbook create-vm.yml -C'
 		echo '*** Virtual machine will start with default configuration ***'
             }
         }
