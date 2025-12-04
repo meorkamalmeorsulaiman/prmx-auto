@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Creating Virutal Machine') {
             steps {
-		sh 'ansible-inventory --list -i inventory.yaml'
+		sh 'ansible-inventory --list'
             }
         }
     }
