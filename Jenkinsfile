@@ -16,10 +16,16 @@ pipeline {
         stage('Creating Virtual Machine') {
             steps {
 		echo "*** Creating ${params.VM_NAME} virtual machine ***"
-		 withSecretEnv([[var: 'VAULT_TOKEN', password: "${env.PROX_TOKEN_ID}"]]) {
-			sh """
-				ansible-playbook create-vm.yml -e \'api_token_secret=${VAULT_TOKEN}\'
-			"""
+		script {
+		    MASKED_SECRET = "${env.PROX_TOKEN_ID}"
+                    wrap([$class: 'MaskPasswordsBuildWrapper', 
+                        varPasswordPairs: [[password: MASKED_SECRET]]]) { 
+                    echo 'Retrieve Secret: ' +  MASKED_SECRET
+                    echo MASKED_SECRET
+                    }
+
+		}
+		sh "ansible-playbook create-vm.yml -e \'api_token_secret=${VAULT_TOKEN}\'"
 		echo '*** Virtual machine will start with default configuration ***'
 		echo '*** Starting a 20-second wait for finishing up virtual machine... ***'
 		sleep time: 20, unit: 'SECONDS'
