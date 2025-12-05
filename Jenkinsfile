@@ -3,8 +3,6 @@ pipeline {
 
     environment {
         PROX_TOKEN_ID = "${PROX_TOKEN_ID}"
-
-
     }
 
     parameters {
@@ -18,7 +16,10 @@ pipeline {
         stage('Creating Virtual Machine') {
             steps {
 		echo "*** Creating ${params.VM_NAME} virtual machine ***"
-		sh "ansible-playbook create-vm.yml -e \'api_token_secret=${env.PROX_TOKEN_ID}\'"
+		 withSecretEnv([[var: 'VAULT_TOKEN', password: "${env.PROX_TOKEN_ID}"]]) {
+			sh """
+				ansible-playbook create-vm.yml -e \'api_token_secret=${VAULT_TOKEN}\'
+			"""
 		echo '*** Virtual machine will start with default configuration ***'
 		echo '*** Starting a 20-second wait for finishing up virtual machine... ***'
 		sleep time: 20, unit: 'SECONDS'
