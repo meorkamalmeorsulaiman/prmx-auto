@@ -15,10 +15,8 @@ pipeline {
     stages {
         stage('Creating Virtual Machine') {
             steps {
-		def sensitiveVar = "${env.PROX_TOKEN_ID}"
-		maskVariables([mySecret: sensitiveVar])	
 		echo "*** Creating ${params.VM_NAME} virtual machine ***"
-		sh "ansible-playbook create-vm.yml -e \'api_token_secret=${mySecret}\'"
+		sh "ansible-playbook create-vm.yml -e \'api_token_secret=${env.PROX_TOKEN_ID}\'"
 		echo '*** Virtual machine will start with default configuration ***'
 		echo '*** Starting a 20-second wait for finishing up virtual machine... ***'
 		sleep time: 20, unit: 'SECONDS'
