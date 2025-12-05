@@ -2,7 +2,7 @@ pipeline {
     agent { label 'agnt-01' }
 
     environment {
-        PROX_TOKEN_ID = credentials("${PROX_TOKEN_ID}")
+        PROX_TOKEN_ID = "${PROX_TOKEN_ID}"
     }
 
     parameters {
