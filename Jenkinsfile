@@ -6,16 +6,16 @@ pipeline {
     }
 
     parameters {
-	string(name: 'VM_ID', defaultValue: 'Enter value', description: 'Virtual machine ID')
-	string(name: 'VM_NAME', defaultValue: 'Enter value',  description: 'Virtual machine name')
-	string(name: 'VM_IP_ADDRESS', defaultValue: 'Enter value',  description: 'Virtual machine IP')
+	string(name: 'VM_ID', defaultValue: 'Virtual machine ID', description: 'Virtual machine ID')
+	string(name: 'VM_NAME', defaultValue: 'Virtual machine name',  description: 'Virtual machine name')
+	string(name: 'VM_IP_ADDRESS', defaultValue: 'IP address',  description: 'Virtual machine IP')
 
     }
 
     stages {
         stage('Creating Virtual Machine') {
             steps {
-		echo "*** Creating ${params.VM_NAME} virutal machine ***"
+		echo "*** Creating ${params.VM_NAME} virtual machine ***"
 		sh "ansible-playbook create-vm.yml -e \'api_token_secret=${env.PROX_TOKEN_ID}\'"
 		echo '*** Virtual machine will start with default configuration ***'
 		echo '*** Starting a 20-second wait for finishing up virtual machine... ***'
