@@ -17,7 +17,6 @@ pipeline {
             steps {
 		echo "*** Creating ${params.VM_NAME} virtual machine ***"
 		maskPasswords(varPasswordPairs: [[var: '${env.PROX_TOKEN_ID}']], varMaskRegexes: []) {
-			echo "Masked password parameter ${env.PROX_TOKEN_ID}"
 			sh "ansible-playbook create-vm.yml -e \'api_token_secret=${env.PROX_TOKEN_ID}\'"
 		}
 		echo '*** Virtual machine will start with default configuration ***'
@@ -29,7 +28,9 @@ pipeline {
         stage('Initialize Virtual Machine') {
             steps {
 		echo "*** Initializing ${params.VM_NAME}. Proxmox will start ${params.VM_NAME} ***"
-		sh "ansible-playbook initialize.yml -e \'api_token_secret=${env.PROX_TOKEN_ID} vm_id=${params.VM_ID} vm_name=${params.VM_NAME}\'"   
+                maskPasswords(varPasswordPairs: [[var: '${env.PROX_TOKEN_ID}']], varMaskRegexes: []) {
+			sh "ansible-playbook initialize.yml -e \'api_token_secret=${env.PROX_TOKEN_ID} vm_id=${params.VM_ID} vm_name=${params.VM_NAME}\'"
+                }
 		echo '*** Starting a 20-second wait for booting up virtual machine... ***'
 		sleep time: 20, unit: 'SECONDS'
 		echo '*** Wait finished. Continuing pipeline ***'
@@ -38,7 +39,9 @@ pipeline {
         stage('Reconfigure Virtual Machine') {
             steps {
 		echo "*** ${params.VM_NAME} will be reconfigure as specified ***"
-		sh "ansible-playbook reconfigure.yml -e \'api_token_secret=${env.PROX_TOKEN_ID} vm_id=${params.VM_NAME} vm_name=${params.VM_NAME} vm_ip_address=${params.VM_IP_ADDRESS}\'"            
+                maskPasswords(varPasswordPairs: [[var: '${env.PROX_TOKEN_ID}']], varMaskRegexes: []) {
+                	sh "ansible-playbook reconfigure.yml -e \'api_token_secret=${env.PROX_TOKEN_ID} vm_id=${params.VM_NAME} vm_name=${params.VM_NAME} vm_ip_address=${params.VM_IP_ADDRESS}\'"
+                }	
 		echo "*** Please restart ${params.VM_NAME} ***"
 	    }
         }
