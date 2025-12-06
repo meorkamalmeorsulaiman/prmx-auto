@@ -19,10 +19,8 @@ pipeline {
 				maskPasswords(varPasswordPairs: [[var: '${env.PROX_TOKEN_ID}']], varMaskRegexes: []) {
 					sh "ansible-playbook playbook/create-vm.yml -e \'api_token_secret=${env.PROX_TOKEN_ID}\'"
 				}
-				echo '*** Virtual machine will start with default configuration ***'
-				echo '*** Starting a 20-second wait for finishing up virtual machine... ***'
-				sleep time: 20, unit: 'SECONDS'
-				echo '*** Wait finished. Continuing pipeline ***'
+				echo '*** Virtual machine provisioned ***'
+				echo '*** Proceed to login via SSH ***'
             }
         }
     }

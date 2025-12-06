@@ -20,9 +20,8 @@
     api_token_secret: "{{ api_token_secret }}"
     api_host: "{{ ansible_host }}"
     node: "{{ node }}"
-    vmid: "{{ clone_source_id }}"
+    vmid: "{{ item.value.vm_id }}"
     name: "{{ item.value.vm_name }}"
-    newid: "{{ item.value.vm_id }}"
     ipconfig: 
       ipconfig0: "ip={{ item.value.vm_ip_address }}/24,gw={{ gateway }}"
     update: true
