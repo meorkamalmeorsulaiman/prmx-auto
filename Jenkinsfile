@@ -15,22 +15,12 @@ pipeline {
     stages {
         stage('Creating Virtual Machine') {
             steps {
-       // Will print the masked value of the KEY, replaced with ****
+    		// Will print the masked value of the KEY, replaced with ****
        		wrap([$class: 'MaskPasswordsBuildWrapper', varPasswordPairs: [[var: "${env.PROX_TOKEN_ID}", password: KEY]], varMaskRegexes: []]) {
             		sh "echo ${KEY}"		
 
 		}
             }
-        }
-        stage('Initialize Virtual Machine') {
-            steps {
-	
-	    }
-        }
-        stage('Reconfigure Virtual Machine') {
-            steps {
-
-	    }
         }
     }
 }
